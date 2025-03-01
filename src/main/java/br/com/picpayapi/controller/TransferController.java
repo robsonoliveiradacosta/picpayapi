@@ -4,6 +4,7 @@ import br.com.picpayapi.dto.request.TransferRequest;
 import br.com.picpayapi.dto.response.TransactionResponse;
 import br.com.picpayapi.service.TransferService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -19,7 +20,7 @@ public class TransferController {
 
     @POST
     @ResponseStatus(201)
-    public void transfer(TransferRequest request) {
+    public void transfer(@Valid TransferRequest request) {
         service.transfer(request);
     }
 

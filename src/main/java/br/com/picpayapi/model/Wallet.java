@@ -1,17 +1,16 @@
 package br.com.picpayapi.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "wallet")
 public class Wallet {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, name = "full_name")
@@ -31,6 +30,10 @@ public class Wallet {
 
     @Column(name = "balance")
     private BigDecimal balance;
+
+    public boolean isShopkeeper() {
+        return Objects.nonNull(cnpj);
+    }
 
     public Long getId() {
         return id;
