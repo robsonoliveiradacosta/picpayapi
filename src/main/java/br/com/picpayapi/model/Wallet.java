@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "wallets")
 public class Wallet {
@@ -26,6 +28,9 @@ public class Wallet {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "balance")
+    private BigDecimal balance;
 
     public Long getId() {
         return id;
@@ -73,5 +78,13 @@ public class Wallet {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }

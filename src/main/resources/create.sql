@@ -5,11 +5,18 @@ create table wallets
     cpf       varchar(11),
     cnpj      varchar(14),
     email     varchar(64),
-    password  varchar(64)
+    password  varchar(64),
+    balance   numeric(11, 2) default 0
 );
 
+insert into wallets(full_name, cpf, email, password, balance)
+values ('Usuario 1', '88006866058', 'usuario1@mail.com.br', '123456', 1200.0);
+
 insert into wallets(full_name, cpf, email, password)
-values ('Francisco Amancio', '18034393002', 'amancio@mail.com.br', '123456');
+values ('Usuario 2', '18034393002', 'usuario2@mail.com.br', '123456');
+
+insert into wallets(full_name, cnpj, email, password, balance)
+values ('Lojista 1', '15389011000182', 'lojista1@mail.com.br', '654321', 5000.0);
 
 insert into wallets(full_name, cnpj, email, password)
-values ('Lojista 1', '15389011000182', 'lojista1@mail.com.br', '654321');
+values ('Lojista 2', '87810728000167', 'lojista2@mail.com.br', '654321');
