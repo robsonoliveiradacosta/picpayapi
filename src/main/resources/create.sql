@@ -6,7 +6,10 @@ create table wallet
     cnpj      varchar(14),
     email     varchar(64),
     password  varchar(64),
-    balance   numeric(11, 2) default 0
+    balance   numeric(11, 2) default 0,
+    unique (cpf),
+    unique (cnpj),
+    unique (email)
 );
 
 create table transaction

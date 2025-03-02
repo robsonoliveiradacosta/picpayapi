@@ -16,13 +16,13 @@ public class Wallet {
     @Column(nullable = false, name = "full_name")
     private String fullName;
 
-    @Column(name = "cpf")
+    @Column(name = "cpf", unique = true)
     private String cpf;
 
-    @Column(name = "cnpj")
+    @Column(name = "cnpj", unique = true)
     private String cnpj;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
@@ -32,7 +32,7 @@ public class Wallet {
     private BigDecimal balance;
 
     public boolean isShopkeeper() {
-        return Objects.nonNull(cnpj);
+        return Objects.nonNull(cnpj) && !cnpj.isBlank();
     }
 
     public Long getId() {
