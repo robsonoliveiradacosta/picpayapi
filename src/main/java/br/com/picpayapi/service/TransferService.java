@@ -36,11 +36,20 @@ public class TransferService {
         if (payer.isShopkeeper()) {
             throw new InvalidTransactionException(Response.Status.BAD_REQUEST, "Shopkeeper cannot make transfer");
         }
+        if (payer.getBalance().compareTo(request.value()) < 0) {
+            throw new InvalidTransactionException(Response.Status.BAD_REQUEST, "Insufficient balance");
+        }
         var transaction = new Transaction();
         transaction.setPayer(payer);
         transaction.setPayee(payee);
         transaction.setAmount(request.value());
+        payer.debit(request.value());
+        payee.credit(request.value());
+
         transactionRepository.persist(transaction);
+        walletRepository.persist(payer);
+        walletRepository.persist(payee);
+
         logger.infof("[Transfer] amount: %s, payer: %s, payee: %s",
                 request.value(), request.payer(), request.payee());
     }

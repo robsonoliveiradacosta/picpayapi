@@ -35,6 +35,14 @@ public class Wallet {
         return Objects.nonNull(cnpj) && !cnpj.isBlank();
     }
 
+    public void debit(BigDecimal amount) {
+        this.balance = this.balance.subtract(amount);
+    }
+
+    public void credit(BigDecimal amount) {
+        this.balance = this.balance.add(amount);
+    }
+
     public Long getId() {
         return id;
     }
