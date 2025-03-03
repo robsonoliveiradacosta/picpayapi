@@ -8,6 +8,7 @@ import br.com.picpayapi.exception.InvalidTransactionException;
 import br.com.picpayapi.model.Transaction;
 import br.com.picpayapi.repository.TransactionRepository;
 import br.com.picpayapi.repository.WalletRepository;
+import io.vertx.mutiny.core.eventbus.EventBus;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -32,6 +33,9 @@ public class TransferService {
 
     @RestClient
     AuthorizationClient authorizationClient;
+
+    @Inject
+    EventBus eventBus;
 
     @Transactional
     public void transfer(TransferRequest request) {
@@ -63,6 +67,8 @@ public class TransferService {
         transactionRepository.persist(transaction);
         walletRepository.persist(payer);
         walletRepository.persist(payee);
+
+        eventBus.publish("transaction-notification", payee.getFullName());
 
         logger.infof("[Transfer] amount: %s, payer: %s, payee: %s",
                 request.value(), request.payer(), request.payee());
