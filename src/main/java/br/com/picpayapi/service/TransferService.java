@@ -18,6 +18,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
 import java.util.List;
+import java.util.Objects;
 
 @ApplicationScoped
 public class TransferService {
@@ -74,7 +75,10 @@ public class TransferService {
                 request.value(), request.payer(), request.payee());
     }
 
-    public List<TransactionResponse> findAll() {
+    public List<TransactionResponse> findAll(Long walletId) {
+        if (Objects.nonNull(walletId)) {
+            return transactionRepository.findByWalletId(walletId).stream().map(TransactionResponse::new).toList();
+        }
         return transactionRepository.listAll().stream().map(TransactionResponse::new).toList();
     }
 }

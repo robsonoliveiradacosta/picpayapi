@@ -9,6 +9,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import org.jboss.resteasy.reactive.ResponseStatus;
+import org.jboss.resteasy.reactive.RestQuery;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class TransferController {
     }
 
     @GET
-    public List<TransactionResponse> findAll() {
-        return service.findAll();
+    public List<TransactionResponse> findAll(@RestQuery Long walletId) {
+        return service.findAll(walletId);
     }
 }
